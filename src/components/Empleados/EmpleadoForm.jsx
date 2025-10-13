@@ -1,61 +1,98 @@
-// src/components/Empleados/EmpleadoForm.jsx
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import api from "../../services/api.jsx";
+import { useState } from "react";
+import { createEmpleado } from "../../services/api.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function EmpleadoForm() {
-  const [empleado, setEmpleado] = useState({
-    NRO_DOCUMENTO: "",
-    NOMBRE: "",
-    APELLIDO: "",
-    EDAD: "",
-    GENERO: "",
-    CARGO: "",
-    CORREO: "",
-    NRO_CONTACTO: "",
-    ESTADO: "Activo",
-    OBSERVACIONES: "",
-  });
+    const [empleado, setEmpleado] = useState({
+        NRO_DOCUMENTO: "",
+        NOMBRE: "",
+        APELLIDO: "",
+        EDAD: "",
+        GENERO: "",
+        CARGO: "",
+        CORREO: "",
+        NRO_CONTACTO: "",
+        ESTADO: "Activo",
+        OBSERVACIONES: "",
+    });
 
-  const navigate = useNavigate();
-  const { id } = useParams();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    if (id) {
-      api.get(`/empleados/${id}`).then((res) => setEmpleado(res.data));
-    }
-  }, [id]);
+    const handleChange = (e) => {
+        setEmpleado({ ...empleado, [e.target.name]: e.target.value });
+    };
 
-  const handleChange = (e) => {
-    setEmpleado({ ...empleado, [e.target.name]: e.target.value });
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await createEmpleado(empleado);
+        navigate("/empleados");
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (id) {
-      await api.put(`/empleados/${id}`, empleado);
-    } else {
-      await api.post("/empleados", empleado);
-    }
-    navigate("/empleados");
-  };
+    return (
+        <div className="form-container">
+            <h2>Registrar Empleado</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label>Número de Documento</label>
+                    <input name="NRO_DOCUMENTO" value={empleado.NRO_DOCUMENTO} onChange={handleChange} required />
+                </div>
 
-  return (
-    <div className="form-container">
-      <h2>{id ? "Editar Empleado" : "Nuevo Empleado"}</h2>
-      <form onSubmit={handleSubmit}>
-        {Object.keys(empleado).map((key) => (
-          <input
-            key={key}
-            type="text"
-            name={key}
-            placeholder={key}
-            value={empleado[key]}
-            onChange={handleChange}
-          />
-        ))}
-        <button type="submit">Guardar</button>
-      </form>
-    </div>
-  );
+                <div className="form-group">
+                    <label>Nombre</label>
+                    <input name="NOMBRE" value={empleado.NOMBRE} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                    <label>Apellido</label>
+                    <input name="APELLIDO" value={empleado.APELLIDO} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                    <label>Edad</label>
+                    <input type="number" name="EDAD" value={empleado.EDAD} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                    <label>Género</label>
+                    <select name="GENERO" value={empleado.GENERO} onChange={handleChange}>
+                        <option value="">Seleccionar</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Cargo</label>
+                    <input name="CARGO" value={empleado.CARGO} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                    <label>Correo</label>
+                    <input type="email" name="CORREO" value={empleado.CORREO} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                    <label>Número de Contacto</label>
+                    <input name="NRO_CONTACTO" value={empleado.NRO_CONTACTO} onChange={handleChange} required />
+                </div>
+
+                <div className="form-group">
+                    <label>Estado</label>
+                    <select name="ESTADO" value={empleado.ESTADO} onChange={handleChange}>
+                        <option value="Activo">Activo</option>
+                        <option value="Retirado">Retirado</option>
+                    </select>
+                </div>
+
+                <div className="form-group">
+                    <label>Observaciones</label>
+                    <textarea name="OBSERVACIONES" rows="3" value={empleado.OBSERVACIONES} onChange={handleChange}></textarea>
+                </div>
+
+                <div className="form-actions">
+                    <button type="submit">Guardar Empleado</button>
+                </div>
+            </form>
+        </div>
+    );
 }

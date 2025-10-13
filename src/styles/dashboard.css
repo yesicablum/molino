@@ -1,0 +1,117 @@
+/* ==== LAYOUT GENERAL ==== */
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+    background: #f5f8fc;
+    font-family: "Poppins", sans-serif;
+}
+
+/* ==== SIDEBAR ==== */
+.sidebar {
+    background: #1d3557;
+    color: white;
+    width: 260px;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .brand-large {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 10px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sidebar h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.sidebar p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+/* ==== NAV ==== */
+.nav-link {
+    display: block;
+    text-decoration: none;
+    color: white;
+    background: #457b9d;
+    padding: 10px 16px;
+    border-radius: 10px;
+    margin: 6px 0;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.nav-link:hover {
+    background: #a8dadc;
+    color: #1d3557;
+    font-weight: 500;
+}
+
+/* ==== MAIN AREA ==== */
+.main {
+    flex: 1;
+    padding: 2.5rem;
+}
+
+.main h2 {
+    font-size: 1.8rem;
+    color: #1d3557;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ==== CARD ==== */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease-in-out;
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card h4 {
+    color: #1d3557;
+    margin-top: 0.5rem;
+}
+
+.small-btn {
+    display: inline-block;
+    background: #1d3557;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.small-btn:hover {
+    background: #457b9d;
+}
+
+/* ==== FOOTER ==== */
+.footer-small {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6c757d;
+}

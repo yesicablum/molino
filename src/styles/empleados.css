@@ -1,0 +1,107 @@
+/* ======== EMPLEADOS LIST ======== */
+.empleados-page {
+  padding: 2.5rem;
+  background: #f5f8fc;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+}
+
+/* TÍTULO */
+.empleados-page h2 {
+  font-size: 1.8rem;
+  color: #1d3557;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* CONTENEDOR TARJETA */
+.empleados-page .table-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* TABLA */
+.empleados-page table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.empleados-page thead {
+  background: #1d3557;
+  color: #ffffff;
+}
+
+.empleados-page th,
+.empleados-page td {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+
+
+/* BOTÓN GENERAL */
+.empleados-page .btn {
+  background: #1d3557;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background 0.2s ease;
+}
+
+.empleados-page .btn:hover {
+  background: #457b9d;
+}
+
+/* BOTONES DE ACCIÓN */
+.empleados-page .icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-right: 6px;
+  transition: transform 0.2s ease;
+}
+
+.empleados-page .icon-btn:hover {
+  transform: scale(1.2);
+}
+
+.empleados-page .action-edit {
+  color: #f1c40f;
+}
+
+.empleados-page .action-delete {
+  color: #e74c3c;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .empleados-page .table-card {
+    padding: 0.5rem;
+  }
+
+  .empleados-page table {
+    font-size: 0.85rem;
+  }
+}
+
+
+
+
+/* 🔒 Desactivar hover en las filas de empleados */
+.empleados-page tbody tr,
+.empleados-page tbody tr:hover {
+  background-color: white !important;
+  transition: none !important;
+}
