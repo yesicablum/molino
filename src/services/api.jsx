@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000/api", // ⚙️ cambia si tu backend usa otro puerto o ruta
+  baseURL: "https://backend-molino.onrender.com", // ⚙️ cambia si tu backend usa otro puerto o ruta
 });
 
 // ====================== EMPLEADOS ======================
