@@ -15,10 +15,17 @@ export default function ContratosList() {
         getContratos().then((res) => setContratos(res.data));
     }, []);
 
-    const eliminarContrato = async (id) => {
+    const eliminarContrato = async (idOrObj) => {
+        // aceptar tanto id string como el objeto completo por seguridad
+        const id = typeof idOrObj === "string" ? idOrObj : idOrObj?._id ?? idOrObj?.id;
+        if (!id) {
+            alert("No se pudo determinar el id del contrato a eliminar.");
+            return;
+        }
+
         if (confirm("¿Deseas eliminar este contrato?")) {
             await deleteContrato(id);
-            setContratos(contratos.filter((c) => c._id !== id));
+            setContratos((prev) => prev.filter((c) => (c._id ?? c.id) !== id));
         }
     };
 
@@ -73,8 +80,8 @@ export default function ContratosList() {
                             <td>{c.fecha_fin}</td>
                             <td>${c.valor_contrato}</td>
                             <td>
-                                <Link to={`/contratos/editar/${c._id}`}>✏️</Link>
-                                <button onClick={() => eliminarContrato(c._id)}>🗑️</button>
+                                <Link to={`/contratos/editar/${c._id ?? c.id}`}>✏️</Link>
+                                <button onClick={() => eliminarContrato(c)}>🗑️</button>
                             </td>
                         </tr>
                     ))}
