@@ -87,7 +87,7 @@ export default function ContratosList() {
                             <td>{c.fecha_fin}</td>
                             <td>${c.valor_contrato}</td>
                             <td>
-                                <Link to={`/contratos/editar/${c._id ?? c.id}`}>✏️</Link>
+                                <Link to={`/contratos/editar/${c._id ?? c.id}`} state={{ contrato: c }}>✏️</Link>
                                 <button onClick={() => eliminarContrato(c)}>🗑️</button>
                             </td>
                         </tr>

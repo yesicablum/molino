@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createContrato, getContrato, updateContrato } from "../../services/api.jsx";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 export default function ContratoForm() {
     const [contrato, setContrato] = useState({
@@ -13,11 +13,30 @@ export default function ContratoForm() {
     const navigate = useNavigate();
     const { id } = useParams();
 
+    const location = useLocation();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
     useEffect(() => {
+        // preferir datos pasados por state desde la lista para evitar llamadas innecesarias
         if (id) {
-            getContrato(id).then((res) => setContrato(res.data || {})).catch(() => navigate('/contratos'));
+            const stateContrato = location?.state?.contrato;
+            if (stateContrato) {
+                setContrato(stateContrato);
+                return;
+            }
+
+            // si no hay estado, intentar fetch; si el backend no expone GET /contratos/:id puede devolver 405
+            setLoading(true);
+            getContrato(id)
+                .then((res) => setContrato(res.data || {}))
+                .catch((err) => {
+                    console.error('Error fetching contrato:', err);
+                    setError('No se pudo cargar el contrato. Intenta editar desde la lista.');
+                })
+                .finally(() => setLoading(false));
         }
-    }, [id]);
+    }, [id, location]);
 
     const handleChange = (e) => {
         const { name, value, type } = e.target;
@@ -43,6 +62,8 @@ export default function ContratoForm() {
     return (
         <div className="form-container">
             <h2>Registrar Contrato</h2>
+            {loading && <div>Cargando contrato...</div>}
+            {error && <div className="alert-error">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Fecha de Inicio</label>
