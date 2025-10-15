@@ -40,6 +40,30 @@
   background: #457b9d;
 }
 
+/* Export buttons group */
+.contratos-page .export-buttons {
+  display: inline-flex;
+  gap: 8px;
+}
+.contratos-page .export-buttons .btn-pdf {
+  background: #c0392b;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.contratos-page .export-buttons .btn-pdf:hover {
+  background: #a33227;
+}
+.contratos-page .export-buttons .btn-xlsx {
+  background: #27ae60;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.contratos-page .export-buttons .btn-xlsx:hover {
+  background: #1f8a4b;
+}
+
 /* TABLA */
 .contratos-page table {
   width: 100%;

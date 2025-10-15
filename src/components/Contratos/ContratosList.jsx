@@ -63,9 +63,9 @@ export default function ContratosList() {
                     <Link to="/dashboard" className="small-btn">← Volver</Link>
                     <Link to="/contratos/nuevo">➕ Nuevo Contrato</Link>
                 </div>
-                <div>
-                    <button onClick={exportarPDF}>📄 Exportar PDF</button>
-                    <button onClick={exportarXLSX}>📊 Exportar XLSX</button>
+                <div className="export-buttons">
+                    <button className="btn-pdf" onClick={exportarPDF} aria-label="Exportar PDF">📄 Exportar PDF</button>
+                    <button className="btn-xlsx" onClick={exportarXLSX} aria-label="Exportar XLSX">📊 Exportar XLSX</button>
                 </div>
             </div>
 
