@@ -21,4 +21,12 @@ export const deleteContrato = (id) => API.delete(`/contratos/${id}`);
 
 // ====================== LOGIN ======================
 export const loginUser = (data) => API.post("/login", data);
-export const recoverPassword = (data) => API.post("/recuperar", data);
+// Use the serverless proxy on the same origin to avoid CORS issues in production
+export const recoverPassword = (data) => {
+  // prefer local API route if available (deployed on Vercel)
+  const useProxy = true;
+  if (useProxy) {
+    return axios.post('/api/recuperar', data);
+  }
+  return API.post("/recuperar", data);
+};
