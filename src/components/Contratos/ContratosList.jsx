@@ -82,7 +82,7 @@ export default function ContratosList() {
                 <tbody>
                     {contratos.map((c) => (
                         <tr key={c._id}>
-                            <td>{c.empleado}</td>
+                            <td>{c._id}{c.empleado}</td>
                             <td>{c.fecha_inicio}</td>
                             <td>{c.fecha_fin}</td>
                             <td>${c.valor_contrato}</td>

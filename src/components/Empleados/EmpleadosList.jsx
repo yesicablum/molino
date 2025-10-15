@@ -51,8 +51,8 @@ export default function EmpleadosList() {
                                     <td>{e.NRO_CONTACTO}</td>
                                     <td>{e.ESTADO}</td>
                                     <td>
-                                        <Link to={`/empleados/editar/${e._id}`} className="icon-btn action-edit">✏️</Link>
-                                        <button onClick={() => eliminarEmpleado(e._id)} className="icon-btn action-delete">🗑️</button>
+                                        <Link to={`/empleados/editar/${e.NRO_DOCUMENTO}`} className="icon-btn action-edit">✏️</Link>
+                                        <button onClick={() => eliminarEmpleado(e.NRO_DOCUMENTO)} className="icon-btn action-delete">🗑️</button>
                                     </td>
                                 </tr>
                             ))}
