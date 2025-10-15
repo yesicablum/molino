@@ -8,8 +8,9 @@ module.exports = async (req, res) => {
 
   try {
     const body = req.body;
+    console.log('[api/recuperar] incoming body:', body);
 
-    // Use global fetch (available on Vercel). Forward the request to the backend.
+    // Forward the request to backend
     const resp = await fetch('https://backend-molino.onrender.com/recuperar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -17,13 +18,15 @@ module.exports = async (req, res) => {
     });
 
     const text = await resp.text();
-    let data;
-    try { data = JSON.parse(text); } catch (e) { data = text; }
+    let parsed;
+    try { parsed = JSON.parse(text); } catch (e) { parsed = text; }
 
-    // Forward status and body
-    res.status(resp.status).send(data);
+    console.log('[api/recuperar] backend status:', resp.status, 'body:', parsed);
+
+    // Forward status and parsed body so the client can see backend error details
+    res.status(resp.status).json({ status: resp.status, ok: resp.ok, body: parsed });
   } catch (err) {
-    console.error('Proxy error /api/recuperar:', err);
-    res.status(500).json({ error: 'Proxy error' });
+    console.error('[api/recuperar] Proxy error:', err);
+    res.status(500).json({ error: 'Proxy error', details: String(err) });
   }
 };
