@@ -1,6 +1,6 @@
 // Proxy endpoint for password recovery to avoid CORS issues from the browser.
 // This will be deployed as a serverless function on Vercel at /api/recuperar
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method Not Allowed' });
@@ -29,4 +29,4 @@ module.exports = async (req, res) => {
     console.error('[api/recuperar] Proxy error:', err);
     res.status(500).json({ error: 'Proxy error', details: String(err) });
   }
-};
+}
