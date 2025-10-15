@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api.jsx";
 import "../styles.css";
+import { Link } from "react-router-dom";
 
 export default function Login() {
     const [form, setForm] = useState({ correo: "", password: "" });
