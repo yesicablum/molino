@@ -56,10 +56,15 @@ export default function ContratosList() {
         <div className="contratos-page">
             <h2>Gestión de Contratos</h2>
 
-            <div className="toolbar">
-                <Link to="/contratos/nuevo">➕ Nuevo Contrato</Link>
-                <button onClick={exportarPDF}>📄 Exportar PDF</button>
-                <button onClick={exportarXLSX}>📊 Exportar XLSX</button>
+            <div className="toolbar" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', gap: 8 }}>
+                    <Link to="/dashboard" className="small-btn">← Volver</Link>
+                    <Link to="/contratos/nuevo">➕ Nuevo Contrato</Link>
+                </div>
+                <div>
+                    <button onClick={exportarPDF}>📄 Exportar PDF</button>
+                    <button onClick={exportarXLSX}>📊 Exportar XLSX</button>
+                </div>
             </div>
 
             <table>

@@ -99,9 +99,10 @@
 
 
 
-/* 🔒 Desactivar hover en las filas de empleados */
-.empleados-page tbody tr,
+/* Mantener filas neutras; evitar colores de selección azules en algunos navegadores */
+.empleados-page tbody tr {
+  background-color: transparent;
+}
 .empleados-page tbody tr:hover {
-  background-color: white !important;
-  transition: none !important;
+  background-color: rgba(29, 53, 87, 0.03);
 }

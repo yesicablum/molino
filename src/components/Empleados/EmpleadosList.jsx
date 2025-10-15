@@ -23,7 +23,10 @@ export default function EmpleadosList() {
             <h2>Empleados</h2>
             <div className="table-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                    <Link to="/empleados/nuevo" className="btn" style={{ width: 'auto', padding: '8px 14px' }}>+ Agregar Empleado</Link>
+                    <div style={{ display: 'flex', gap: 8 }}>
+                        <Link to="/dashboard" className="btn" style={{ width: 'auto', padding: '8px 14px' }}>← Volver</Link>
+                        <Link to="/empleados/nuevo" className="btn" style={{ width: 'auto', padding: '8px 14px' }}>+ Agregar Empleado</Link>
+                    </div>
                     {/* aquí podrías añadir export botones */}
                 </div>
 
