@@ -45,6 +45,14 @@ export default function App() {
         }
       />
       <Route
+        path="/empleados/editar/:id"
+        element={
+          <PrivateRoute>
+            <EmpleadoForm />
+          </PrivateRoute>
+        }
+      />
+      <Route
         path="/contratos"
         element={
           <PrivateRoute>
@@ -54,6 +62,14 @@ export default function App() {
       />
       <Route
         path="/contratos/nuevo"
+        element={
+          <PrivateRoute>
+            <ContratoForm />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/contratos/editar/:id"
         element={
           <PrivateRoute>
             <ContratoForm />

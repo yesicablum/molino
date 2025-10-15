@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { createContrato } from "../../services/api.jsx";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { createContrato, getContrato, updateContrato } from "../../services/api.jsx";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function ContratoForm() {
     const [contrato, setContrato] = useState({
@@ -11,6 +11,13 @@ export default function ContratoForm() {
     });
 
     const navigate = useNavigate();
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            getContrato(id).then((res) => setContrato(res.data || {})).catch(() => navigate('/contratos'));
+        }
+    }, [id]);
 
     const handleChange = (e) => {
         setContrato({ ...contrato, [e.target.name]: e.target.value });
@@ -18,7 +25,11 @@ export default function ContratoForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await createContrato(contrato);
+        if (id) {
+            await updateContrato(id, contrato);
+        } else {
+            await createContrato(contrato);
+        }
         navigate("/contratos");
     };
 

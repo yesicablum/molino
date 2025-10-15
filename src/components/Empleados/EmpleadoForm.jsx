@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { createEmpleado } from "../../services/api.jsx";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { createEmpleado, getEmpleado, updateEmpleado } from "../../services/api.jsx";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EmpleadoForm() {
     const [empleado, setEmpleado] = useState({
@@ -17,6 +17,19 @@ export default function EmpleadoForm() {
     });
 
     const navigate = useNavigate();
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            // modo edición: cargar datos
+            getEmpleado(id).then((res) => {
+                setEmpleado(res.data || {});
+            }).catch(() => {
+                // si falla, redirigir a lista
+                navigate('/empleados');
+            });
+        }
+    }, [id]);
 
     const handleChange = (e) => {
         setEmpleado({ ...empleado, [e.target.name]: e.target.value });
@@ -24,7 +37,11 @@ export default function EmpleadoForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await createEmpleado(empleado);
+        if (id) {
+            await updateEmpleado(id, empleado);
+        } else {
+            await createEmpleado(empleado);
+        }
         navigate("/empleados");
     };
 
