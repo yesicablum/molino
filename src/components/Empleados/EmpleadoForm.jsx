@@ -32,7 +32,15 @@ export default function EmpleadoForm() {
     }, [id]);
 
     const handleChange = (e) => {
-        setEmpleado({ ...empleado, [e.target.name]: e.target.value });
+        const { name, value, type } = e.target;
+        let newVal = value;
+        // prevenir negativos en inputs numéricos
+        if (type === 'number') {
+            const num = Number(value);
+            if (Number.isNaN(num)) newVal = '';
+            else newVal = String(Math.max(0, num));
+        }
+        setEmpleado({ ...empleado, [name]: newVal });
     };
 
     const handleSubmit = async (e) => {
@@ -66,7 +74,7 @@ export default function EmpleadoForm() {
 
                 <div className="form-group">
                     <label>Edad</label>
-                    <input type="number" name="EDAD" value={empleado.EDAD} onChange={handleChange} required />
+                    <input type="number" name="EDAD" min="0" value={empleado.EDAD} onChange={handleChange} required />
                 </div>
 
                 <div className="form-group">

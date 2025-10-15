@@ -20,7 +20,14 @@ export default function ContratoForm() {
     }, [id]);
 
     const handleChange = (e) => {
-        setContrato({ ...contrato, [e.target.name]: e.target.value });
+        const { name, value, type } = e.target;
+        let newVal = value;
+        if (type === 'number') {
+            const num = Number(value);
+            if (Number.isNaN(num)) newVal = '';
+            else newVal = String(Math.max(0, num));
+        }
+        setContrato({ ...contrato, [name]: newVal });
     };
 
     const handleSubmit = async (e) => {
@@ -49,7 +56,7 @@ export default function ContratoForm() {
 
                 <div className="form-group">
                     <label>Valor del Contrato</label>
-                    <input type="number" name="valor_contrato" value={contrato.valor_contrato} onChange={handleChange} required />
+                    <input type="number" min="0" name="valor_contrato" value={contrato.valor_contrato} onChange={handleChange} required />
                 </div>
 
                 <div className="form-group">

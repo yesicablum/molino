@@ -50,8 +50,16 @@ button:hover {
   border-color: #646cff;
 }
 button:focus,
+button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+/* Neutralizar color de selección global que algunos navegadores muestran en azul */
+::selection {
+  background: rgba(29, 53, 87, 0.12);
+  color: inherit;
 }
 
 @media (prefers-color-scheme: light) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getContratos, deleteContrato } from "../../services/api.jsx";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import "../../styles/contratos.css";
@@ -32,7 +32,8 @@ export default function ContratosList() {
     const exportarPDF = () => {
         const doc = new jsPDF();
         doc.text("Listado de Contratos - Molino de Arroz", 14, 10);
-        doc.autoTable({
+        // usar la API autoTable registrada
+        autoTable(doc, {
             head: [["Empleado", "Fecha Inicio", "Fecha Fin", "Valor"]],
             body: contratos.map((c) => [
                 c.empleado,
@@ -40,6 +41,7 @@ export default function ContratosList() {
                 c.fecha_fin,
                 `$${c.valor_contrato}`,
             ]),
+            startY: 18,
         });
         doc.save("contratos_molino.pdf");
     };
