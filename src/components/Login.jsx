@@ -41,7 +41,7 @@ export default function Login() {
                     <button className="btn" type="submit">Ingresar</button>
                 </form>
 
-                <a className="small-link" href="/recuperar">¿Olvidaste tu contraseña?</a>
+                <Link className="small-link" to="/recuperar">¿Olvidaste tu contraseña?</Link>
             </div>
         </div>
     );
