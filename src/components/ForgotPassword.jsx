@@ -7,17 +7,35 @@ export default function ForgotPassword() {
     const [correo, setCorreo] = useState("");
     const [msg, setMsg] = useState("");
     const [err, setErr] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setMsg("");
+        setErr("");
+        setLoading(true);
         try {
             const res = await recoverPassword({ correo });
-            setMsg(res?.data?.message || "Se envió el enlace de recuperación.");
+
+            // Si la API retorna un campo message lo mostramos; si no, mostramos un mensaje neutral
+            const data = res?.data;
+            if (data && (data.message || (data.body && data.body.message))) {
+                const message = data.message || data.body.message;
+                setMsg(message);
+            } else {
+                // Mensaje neutral: si el backend procesa en background no podemos garantizar entrega
+                setMsg("Si el correo existe en nuestro sistema, recibirás un mensaje con las instrucciones. Revisa spam o la carpeta de correo no deseado.");
+            }
             setErr("");
-        } catch (e) {
-            setErr("No fue posible enviar el correo. Intenta más tarde.");
+        } catch (error) {
+            // intentar extraer mensaje del body de error del proxy/backend
+            const apiMessage = error?.response?.data?.body?.message || error?.response?.data?.message || error?.message;
+            console.error('recoverPassword error', error);
+            setErr(apiMessage || "No fue posible enviar el correo. Intenta más tarde.");
             setMsg("");
+        } finally {
+            setLoading(false);
         }
     };
 
